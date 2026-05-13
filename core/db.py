@@ -191,13 +191,20 @@ def new_id() -> str:
 
 
 def connect(db_path: Path | str) -> sqlite3.Connection:
-    """외래키 제약과 Row factory를 활성화한 연결을 반환한다."""
+    """외래키 제약과 Row factory를 활성화한 연결을 반환한다.
+
+    `check_same_thread=False`로 멀티스레드 환경(Streamlit Cloud) 호환.
+    SQLite 자체는 직렬화된 쓰기를 보장하므로 PoC 트래픽에서 안전.
+    베타 본격 단계에서는 PostgreSQL로 마이그레이션 권장 (정책 06 부록).
+    """
     path = Path(db_path)
     if path.parent and not path.parent.exists():
         path.parent.mkdir(parents=True, exist_ok=True)
-    conn = sqlite3.connect(path)
+    conn = sqlite3.connect(path, check_same_thread=False)
     conn.row_factory = sqlite3.Row
     conn.execute("PRAGMA foreign_keys = ON")
+    # WAL 모드로 동시 읽기 안정성 향상 (Streamlit 멀티세션 호환).
+    conn.execute("PRAGMA journal_mode = WAL")
     return conn
 
 
