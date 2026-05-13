@@ -72,6 +72,7 @@ desktop.ini
 
 # Streamlit
 .streamlit/secrets.toml
+!.streamlit/secrets.toml.example
 
 # 임시 자료 (개발 중 외부 자문 문서 보관용)
 docs/advisory/

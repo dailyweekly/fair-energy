@@ -16,6 +16,7 @@ from pathlib import Path
 import streamlit as st
 
 from core import classification, message_templates, metrics, scoring
+from core.auth import require_password
 from core.guardrails import UnsafeOutputError
 from core.models import CaseClassification, SafetyLevel
 from core.safety import (
@@ -26,6 +27,8 @@ from core.safety import (
     should_hide_message_template,
 )
 
+
+require_password()
 
 st.set_page_config(page_title="자료 확인 메시지 예시 · 공정에너지", page_icon="⚡")
 st.title("7. 자료 확인 메시지 예시")

@@ -8,8 +8,11 @@ from __future__ import annotations
 import streamlit as st
 
 from core import db
+from core.auth import require_password
 from core.safety import DEFAULT_DISCLAIMER
 
+
+require_password()
 
 st.set_page_config(page_title="시작하기 · 공정에너지", page_icon="⚡")
 st.title("1. 시작하기")

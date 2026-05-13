@@ -9,8 +9,11 @@ from __future__ import annotations
 import streamlit as st
 
 from core import classification, redaction, scoring
+from core.auth import require_password
 from core.models import CaseClassification
 
+
+require_password()
 
 st.set_page_config(page_title="자료 완결성 점수 · 공정에너지", page_icon="⚡")
 st.title("5. 자료 완결성 점수")

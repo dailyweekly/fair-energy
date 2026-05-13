@@ -11,8 +11,11 @@ from pathlib import Path
 import streamlit as st
 
 from core import extraction, storage
+from core.auth import require_password
 from core.llm_client import get_llm_client
 
+
+require_password()
 
 st.set_page_config(page_title="추출값 확인 · 공정에너지", page_icon="⚡")
 st.title("4. 추출값 확인")

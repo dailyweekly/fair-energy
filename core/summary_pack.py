@@ -49,9 +49,10 @@ KOREAN_FONT_CANDIDATES: tuple[str, ...] = (
     r"C:\Windows\Fonts\gulim.ttc",
     # macOS 기본
     "/System/Library/Fonts/AppleSDGothicNeo.ttc",
-    # Linux Noto·NanumGothic
-    "/usr/share/fonts/truetype/noto/NotoSansCJK-Regular.ttc",
+    # Linux Noto·NanumGothic (Streamlit Community Cloud의 packages.txt가 설치)
     "/usr/share/fonts/truetype/nanum/NanumGothic.ttf",
+    "/usr/share/fonts/truetype/nanum/NanumGothicBold.ttf",
+    "/usr/share/fonts/truetype/noto/NotoSansCJK-Regular.ttc",
     "/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc",
 )
 

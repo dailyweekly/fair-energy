@@ -8,8 +8,18 @@ from __future__ import annotations
 import streamlit as st
 
 from core import config, db
+from core.auth import require_password
 from core.guardrails import assert_safe_output
 from core.safety import DEFAULT_DISCLAIMER
+
+
+# ---------------------------------------------------------------------------
+# 외부 접근 인증 게이트 (Streamlit Community Cloud 배포 시 활성화)
+# 환경변수 APP_ACCESS_PASSWORD 또는 secrets.toml의 app_access_password 사용.
+# 둘 다 비어 있으면 인증 없이 통과 (로컬 개발).
+# ---------------------------------------------------------------------------
+
+require_password()
 
 
 # ---------------------------------------------------------------------------

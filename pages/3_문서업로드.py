@@ -9,8 +9,11 @@ from __future__ import annotations
 import streamlit as st
 
 from core import storage
+from core.auth import require_password
 from core.models import DocumentType
 
+
+require_password()
 
 st.set_page_config(page_title="문서 업로드 · 공정에너지", page_icon="⚡")
 st.title("3. 문서 업로드")

@@ -10,8 +10,11 @@ import pandas as pd
 import streamlit as st
 
 from core import metrics
+from core.auth import require_password
 from core.models import CaseClassification
 
+
+require_password()
 
 st.set_page_config(page_title="KPI 대시보드 · 공정에너지", page_icon="📊")
 st.title("10. KPI 대시보드")

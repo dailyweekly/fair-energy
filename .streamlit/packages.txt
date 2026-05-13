@@ -1,0 +1,6 @@
+# Streamlit Community Cloud의 apt-get 추가 패키지 목록.
+# 한국어 PDF 렌더링용 폰트 — core/summary_pack.py가 사용.
+
+fonts-nanum
+fonts-nanum-coding
+fonts-noto-cjk

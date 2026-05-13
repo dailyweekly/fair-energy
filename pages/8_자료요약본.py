@@ -9,7 +9,10 @@ from __future__ import annotations
 import streamlit as st
 
 from core import metrics, redaction, summary_pack
+from core.auth import require_password
 
+
+require_password()
 
 st.set_page_config(page_title="자료 요약본 · 공정에너지", page_icon="⚡")
 st.title("8. 자료 요약본")

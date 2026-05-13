@@ -13,8 +13,11 @@ from __future__ import annotations
 import streamlit as st
 
 from core import extraction
+from core.auth import require_password
 from core.models import DocumentType
 
+
+require_password()
 
 st.set_page_config(page_title="수동 입력 · 공정에너지", page_icon="⚡")
 st.title("3b. 수동 입력 모드")

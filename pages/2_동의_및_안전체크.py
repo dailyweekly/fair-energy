@@ -9,12 +9,15 @@ from __future__ import annotations
 import streamlit as st
 
 from core import consent
+from core.auth import require_password
 from core.models import SafetyCheckResponse, SafetyLevel
 from core.safety import (
     HIGH_RISK_DISCLAIMER,
     classify_safety_level,
 )
 
+
+require_password()
 
 st.set_page_config(page_title="동의 및 안전체크 · 공정에너지", page_icon="⚡")
 st.title("2. 동의 및 안전 체크")
