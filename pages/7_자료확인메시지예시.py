@@ -15,7 +15,7 @@ from pathlib import Path
 
 import streamlit as st
 
-from core import classification, message_templates, metrics, scoring
+from core import classification, demo, message_templates, metrics, scoring, ui
 from core.auth import require_password
 from core.guardrails import UnsafeOutputError
 from core.models import CaseClassification, SafetyLevel
@@ -30,7 +30,20 @@ from core.safety import (
 
 require_password()
 
-st.set_page_config(page_title="자료 확인 메시지 예시 · 공정에너지", page_icon="⚡")
+st.set_page_config(
+    page_title="자료 확인 메시지 예시 · 공정에너지",
+    page_icon="⚡",
+    layout="centered",
+    initial_sidebar_state="collapsed",
+)
+
+from app import conn  # type: ignore[attr-defined]
+
+if demo.is_demo_mode():
+    demo.ensure_demo_session(conn)
+
+ui.render_chrome(current_page_num=7, demo_mode=demo.is_demo_mode())
+
 st.title("7. 자료 확인 메시지 예시")
 
 

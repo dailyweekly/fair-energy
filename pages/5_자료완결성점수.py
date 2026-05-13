@@ -8,14 +8,27 @@ from __future__ import annotations
 
 import streamlit as st
 
-from core import classification, redaction, scoring
+from core import classification, demo, redaction, scoring, ui
 from core.auth import require_password
 from core.models import CaseClassification
 
 
 require_password()
 
-st.set_page_config(page_title="자료 완결성 점수 · 공정에너지", page_icon="⚡")
+st.set_page_config(
+    page_title="자료 완결성 점수 · 공정에너지",
+    page_icon="⚡",
+    layout="centered",
+    initial_sidebar_state="collapsed",
+)
+
+from app import conn  # type: ignore[attr-defined]
+
+if demo.is_demo_mode():
+    demo.ensure_demo_session(conn)
+
+ui.render_chrome(current_page_num=5, demo_mode=demo.is_demo_mode())
+
 st.title("5. 자료 완결성 점수")
 
 

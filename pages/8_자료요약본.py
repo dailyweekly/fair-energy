@@ -8,13 +8,26 @@ from __future__ import annotations
 
 import streamlit as st
 
-from core import metrics, redaction, summary_pack
+from core import demo, metrics, redaction, summary_pack, ui
 from core.auth import require_password
 
 
 require_password()
 
-st.set_page_config(page_title="자료 요약본 · 공정에너지", page_icon="⚡")
+st.set_page_config(
+    page_title="자료 요약본 · 공정에너지",
+    page_icon="⚡",
+    layout="centered",
+    initial_sidebar_state="collapsed",
+)
+
+from app import conn  # type: ignore[attr-defined]
+
+if demo.is_demo_mode():
+    demo.ensure_demo_session(conn)
+
+ui.render_chrome(current_page_num=8, demo_mode=demo.is_demo_mode())
+
 st.title("8. 자료 요약본")
 
 

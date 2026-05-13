@@ -8,14 +8,27 @@ from __future__ import annotations
 
 import streamlit as st
 
-from core import storage
+from core import demo, storage, ui
 from core.auth import require_password
 from core.models import DocumentType
 
 
 require_password()
 
-st.set_page_config(page_title="문서 업로드 · 공정에너지", page_icon="⚡")
+st.set_page_config(
+    page_title="문서 업로드 · 공정에너지",
+    page_icon="⚡",
+    layout="centered",
+    initial_sidebar_state="collapsed",
+)
+
+from app import conn  # type: ignore[attr-defined]
+
+if demo.is_demo_mode():
+    demo.ensure_demo_session(conn)
+
+ui.render_chrome(current_page_num=3, demo_mode=demo.is_demo_mode())
+
 st.title("3. 문서 업로드")
 
 

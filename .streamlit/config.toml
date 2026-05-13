@@ -4,8 +4,8 @@
 [server]
 # 외부 접근 인증은 코드(core/auth.py) 차원에서 처리 — 본 설정은 일반 동작.
 headless = true
-enableCORS = false
 enableXsrfProtection = true
+# enableCORS는 enableXsrfProtection=true와 충돌하므로 제거 (자동 true).
 
 [browser]
 # Streamlit이 사용 통계를 Streamlit 측 서버로 전송하는 기본 동작 비활성화.
