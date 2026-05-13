@@ -1,0 +1,16 @@
+streamlit>=1.32
+pydantic>=2.0
+pandas>=2.0
+numpy>=1.26
+Pillow>=10.0
+pypdf>=4.0
+PyMuPDF>=1.23
+python-dotenv>=1.0
+cryptography>=42.0
+SQLAlchemy>=2.0
+PyYAML>=6.0
+reportlab>=4.0
+anthropic>=0.20
+openai>=1.0
+pytest>=8.0
+ruff>=0.4
