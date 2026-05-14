@@ -144,9 +144,14 @@ p, div[data-testid="stMarkdownContainer"] {
 
 /* 버튼 — 토스 블루.
    Streamlit 버튼은 내부에 <div><p>텍스트</p></div> 구조라
-   button 자체뿐 아니라 자식 요소에도 color를 강제해야 함. */
+   button 자체뿐 아니라 자식 요소에도 color를 강제해야 함.
+   3종 래퍼 모두 커버: .stButton (st.button) / .stDownloadButton (st.download_button) /
+   .stFormSubmitButton (st.form_submit_button).
+   kind 속성은 버전에 따라 "primary" 또는 "primaryFormSubmit"(폼) 으로 렌더링되므로
+   `[kind^="primary"]` 시작-일치 셀렉터를 사용해 둘 다 잡는다. */
 .stButton > button,
 .stDownloadButton > button,
+.stFormSubmitButton > button,
 .stLinkButton > a {
     border-radius: 12px !important;
     padding: 12px 20px !important;
@@ -158,55 +163,73 @@ p, div[data-testid="stMarkdownContainer"] {
     min-height: 44px !important;
 }
 
-/* Primary 버튼 — 파란 배경 + 흰 글씨 강제 */
-.stButton > button[kind="primary"],
-.stButton > button[kind="primary"] *,
-.stButton > button[kind="primary"] p,
-.stButton > button[kind="primary"] span,
-.stButton > button[kind="primary"] div,
-.stDownloadButton > button[kind="primary"],
-.stDownloadButton > button[kind="primary"] * {
+/* Primary 버튼 — 파란 배경 + 흰 글씨 강제 (폼 제출 버튼 포함) */
+.stButton > button[kind^="primary"],
+.stButton > button[kind^="primary"] *,
+.stButton > button[kind^="primary"] p,
+.stButton > button[kind^="primary"] span,
+.stButton > button[kind^="primary"] div,
+.stDownloadButton > button[kind^="primary"],
+.stDownloadButton > button[kind^="primary"] *,
+.stFormSubmitButton > button[kind^="primary"],
+.stFormSubmitButton > button[kind^="primary"] *,
+.stFormSubmitButton > button[kind^="primary"] p,
+.stFormSubmitButton > button[kind^="primary"] span,
+.stFormSubmitButton > button[kind^="primary"] div {
     color: #FFFFFF !important;
 }
-.stButton > button[kind="primary"],
-.stDownloadButton > button[kind="primary"] {
+.stButton > button[kind^="primary"],
+.stDownloadButton > button[kind^="primary"],
+.stFormSubmitButton > button[kind^="primary"] {
     background-color: #3182F6 !important;
     background: #3182F6 !important;
 }
-.stButton > button[kind="primary"]:hover,
-.stDownloadButton > button[kind="primary"]:hover {
+.stButton > button[kind^="primary"]:hover,
+.stDownloadButton > button[kind^="primary"]:hover,
+.stFormSubmitButton > button[kind^="primary"]:hover {
     background-color: #1B64DA !important;
     background: #1B64DA !important;
     transform: translateY(-1px);
 }
-.stButton > button[kind="primary"]:hover *,
-.stButton > button[kind="primary"]:active *,
-.stButton > button[kind="primary"]:focus * {
+.stButton > button[kind^="primary"]:hover *,
+.stButton > button[kind^="primary"]:active *,
+.stButton > button[kind^="primary"]:focus *,
+.stFormSubmitButton > button[kind^="primary"]:hover *,
+.stFormSubmitButton > button[kind^="primary"]:active *,
+.stFormSubmitButton > button[kind^="primary"]:focus * {
     color: #FFFFFF !important;
 }
 
 /* Secondary 버튼 — 회색 배경 + 짙은 글씨 강제 */
-.stButton > button[kind="secondary"],
-.stButton > button[kind="secondary"] *,
-.stButton > button[kind="secondary"] p,
-.stButton > button[kind="secondary"] span,
-.stDownloadButton > button[kind="secondary"],
-.stDownloadButton > button[kind="secondary"] * {
+.stButton > button[kind^="secondary"],
+.stButton > button[kind^="secondary"] *,
+.stButton > button[kind^="secondary"] p,
+.stButton > button[kind^="secondary"] span,
+.stDownloadButton > button[kind^="secondary"],
+.stDownloadButton > button[kind^="secondary"] *,
+.stFormSubmitButton > button[kind^="secondary"],
+.stFormSubmitButton > button[kind^="secondary"] *,
+.stFormSubmitButton > button[kind^="secondary"] p,
+.stFormSubmitButton > button[kind^="secondary"] span {
     color: #191F28 !important;
 }
-.stButton > button[kind="secondary"],
-.stDownloadButton > button[kind="secondary"] {
+.stButton > button[kind^="secondary"],
+.stDownloadButton > button[kind^="secondary"],
+.stFormSubmitButton > button[kind^="secondary"] {
     background-color: #F2F4F6 !important;
     border: 1px solid #E5E8EB !important;
 }
-.stButton > button[kind="secondary"]:hover,
-.stDownloadButton > button[kind="secondary"]:hover {
+.stButton > button[kind^="secondary"]:hover,
+.stDownloadButton > button[kind^="secondary"]:hover,
+.stFormSubmitButton > button[kind^="secondary"]:hover {
     background-color: #E5E8EB !important;
 }
 
 /* 비활성 버튼 — 가시성 유지 */
 .stButton > button:disabled,
-.stButton > button:disabled * {
+.stButton > button:disabled *,
+.stFormSubmitButton > button:disabled,
+.stFormSubmitButton > button:disabled * {
     opacity: 0.5 !important;
     cursor: not-allowed !important;
 }
