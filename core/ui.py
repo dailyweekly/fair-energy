@@ -18,7 +18,7 @@ import streamlit as st
 # ---------------------------------------------------------------------------
 
 PAGE_MAP: list[tuple[int, str, str, str]] = [
-    # (번호, 라벨, 경로, 아이콘)
+    # (번호, 라벨, 경로, 아이콘) — 전체 페이지 (이전·다음 네비게이션용)
     (1, "시작", "pages/1_시작하기.py", "🚀"),
     (2, "동의·안전", "pages/2_동의_및_안전체크.py", "🛡️"),
     (3, "업로드", "pages/3_문서업로드.py", "📤"),
@@ -27,6 +27,31 @@ PAGE_MAP: list[tuple[int, str, str, str]] = [
     (6, "분류", "pages/6_검산결과.py", "🎯"),
     (7, "메시지", "pages/7_자료확인메시지예시.py", "💬"),
     (8, "요약본", "pages/8_자료요약본.py", "📄"),
+]
+
+
+# 페이지 점퍼 그룹 — 사용자 여정 / 결과·문서로 분리.
+PAGE_GROUPS: list[tuple[str, str, list[tuple[int, str, str, str]]]] = [
+    (
+        "🧑‍💼 사용자 플로우",
+        "본인 자료를 업로드해 검산 가능성을 확인하는 순서",
+        [
+            (1, "시작", "pages/1_시작하기.py", "🚀"),
+            (2, "동의·안전", "pages/2_동의_및_안전체크.py", "🛡️"),
+            (3, "업로드", "pages/3_문서업로드.py", "📤"),
+            (4, "확인", "pages/4_추출값확인.py", "✅"),
+            (5, "점수", "pages/5_자료완결성점수.py", "📊"),
+            (6, "분류 결과", "pages/6_검산결과.py", "🎯"),
+        ],
+    ),
+    (
+        "📋 결과·문서",
+        "검산 후 활용 가능한 메시지 예시·자료 요약본",
+        [
+            (7, "메시지 예시", "pages/7_자료확인메시지예시.py", "💬"),
+            (8, "자료 요약본", "pages/8_자료요약본.py", "📄"),
+        ],
+    ),
 ]
 
 
@@ -329,18 +354,26 @@ def render_header(
 
 
 def render_page_jumper(current_page_num: int) -> None:
-    """페이지 직접 이동 expander — 데모·시연 시 자유 진입용."""
+    """페이지 직접 이동 expander — 두 그룹으로 분리 표시.
+
+    - 🧑‍💼 사용자 플로우: 1~6 (선형 진행)
+    - 📋 결과·문서: 7~8 (활용 단계)
+    - 🎬 심사관·자문위원용 「둘러보기」는 별도 버튼으로 노출.
+    """
     with st.expander("📋 다른 페이지로 이동", expanded=False):
-        # 2행 x 4열 배치.
-        for row in range(2):
-            cols = st.columns(4)
-            for col_idx, col in enumerate(cols):
-                idx = row * 4 + col_idx
-                if idx >= len(PAGE_MAP):
-                    continue
-                page_num, label, target, icon = PAGE_MAP[idx]
+        for group_label, group_desc, pages in PAGE_GROUPS:
+            st.markdown(
+                f"<div style='margin:8px 0 6px;'>"
+                f"<span style='font-size:14px;font-weight:700;color:#191F28;'>{group_label}</span>"
+                f"&nbsp;&nbsp;"
+                f"<span style='font-size:12px;color:#8B95A1;'>{group_desc}</span>"
+                f"</div>",
+                unsafe_allow_html=True,
+            )
+            cols = st.columns(min(len(pages), 4))
+            for i, (page_num, label, target, icon) in enumerate(pages):
                 is_current = (page_num == current_page_num)
-                with col:
+                with cols[i % len(cols)]:
                     if st.button(
                         f"{icon} {page_num}. {label}",
                         key=f"jump_{page_num}",
@@ -349,6 +382,22 @@ def render_page_jumper(current_page_num: int) -> None:
                         disabled=is_current,
                     ):
                         st.switch_page(target)
+
+        st.markdown(
+            "<div style='margin:14px 0 6px;'>"
+            "<span style='font-size:14px;font-weight:700;color:#191F28;'>🎬 심사관·자문위원</span>"
+            "&nbsp;&nbsp;"
+            "<span style='font-size:12px;color:#8B95A1;'>5분 안에 솔루션을 둘러보기</span>"
+            "</div>",
+            unsafe_allow_html=True,
+        )
+        if st.button(
+            "🎬 둘러보기 (결과 미리보기·정책·가드레일)",
+            key="jump_overview",
+            use_container_width=True,
+            type="secondary",
+        ):
+            st.switch_page("pages/0_심사관_둘러보기.py")
 
 
 def render_footer_nav(

@@ -82,8 +82,7 @@ ui.inject_theme()
 if demo.is_demo_mode():
     st.markdown(
         '<div class="demo-banner">'
-        "🎬 데모 모드 활성화 — 모든 단계의 예시 데이터가 자동 생성되어 있습니다. "
-        "어느 페이지든 자유롭게 둘러보세요."
+        "🎬 데모 모드 활성화 — 모든 단계의 예시 데이터가 자동 생성되어 있습니다."
         "</div>",
         unsafe_allow_html=True,
     )
@@ -91,7 +90,7 @@ if demo.is_demo_mode():
 # 메인 헤더 카드.
 st.markdown(
     """
-    <div style="background:white;border-radius:16px;padding:32px 28px;
+    <div style="background:white;border-radius:16px;padding:32px 28px 24px;
                 margin-bottom:20px;box-shadow:0 1px 3px rgba(0,0,0,0.04);
                 border:1px solid #E5E8EB;text-align:center;">
         <div style="font-size:42px;margin-bottom:8px;">⚡</div>
@@ -99,68 +98,120 @@ st.markdown(
                     letter-spacing:-0.02em;margin-bottom:6px;">
             공정에너지
         </div>
-        <div style="font-size:14px;color:#6B7684;">
+        <div style="font-size:14px;color:#6B7684;line-height:1.5;">
             Energy Bill Passport · 임차인 전기요금 검산 가능성 진단
         </div>
+        <div style="margin-top:12px;font-size:13px;color:#8B95A1;">
+            본 서비스는 <b style="color:#3182F6;">법률서비스가 아닙니다</b>.
+            임대인의 위법성·환급 가능성·분쟁 결과를 판단하지 않습니다.
+        </div>
     </div>
     """,
     unsafe_allow_html=True,
 )
 
-# 정체성 선언 카드.
+
+# ---------------------------------------------------------------------------
+# 두 진입점 — 사용자 vs 심사관·자문위원
+# ---------------------------------------------------------------------------
+
 st.markdown(
-    """
-    <div style="background:white;border-radius:16px;padding:24px;
-                margin-bottom:12px;box-shadow:0 1px 3px rgba(0,0,0,0.04);
-                border:1px solid #E5E8EB;">
-        <div style="font-size:16px;font-weight:700;color:#191F28;margin-bottom:10px;">
-            본 서비스는 법률서비스가 아닙니다
-        </div>
-        <div style="font-size:14px;color:#4E5968;line-height:1.65;">
-            임차인의 에너지 청구 자료가 검산 가능한 상태인지 진단하고,
-            공식 요금 산식과 비교 가능한 경우에만 계산 근거를 제공하는 도구입니다.
-            <br><br>
-            <span style="color:#8B95A1;">
-                ・ 임대인의 위법성 여부·환급 가능성·분쟁 결과를 판단하지 않습니다<br>
-                ・ 소장·내용증명·민원 본문을 작성하지 않습니다<br>
-                ・ 모든 결과는 산식 차이·근거 부족·확인 요망 등 중립 표현만 사용합니다
-            </span>
-        </div>
-    </div>
-    """,
+    "<div style='font-size:13px;color:#8B95A1;margin:8px 4px 12px;font-weight:600;'>"
+    "방문 목적을 선택해주세요"
+    "</div>",
     unsafe_allow_html=True,
 )
 
-# CTA 카드.
-st.markdown("<div style='margin:20px 0 8px;'></div>", unsafe_allow_html=True)
+entry_cols = st.columns(2)
 
-cta_cols = st.columns([1, 1])
-with cta_cols[0]:
-    if st.button("🚀 시작하기", use_container_width=True, type="primary"):
+with entry_cols[0]:
+    st.markdown(
+        """
+        <div style="background:white;border-radius:16px;padding:22px 20px 18px;
+                    border:1px solid #E5E8EB;min-height:230px;">
+            <div style="font-size:30px;margin-bottom:6px;">🧑‍💼</div>
+            <div style="font-size:17px;font-weight:700;color:#191F28;margin-bottom:6px;">
+                본인 자료로 시작
+            </div>
+            <div style="font-size:13px;color:#6B7684;line-height:1.6;margin-bottom:12px;">
+                실제 임차인이 본인 전기요금 자료를 업로드해
+                <b>검산 가능한 상태인지 확인</b>합니다.
+            </div>
+            <div style="font-size:11px;color:#8B95A1;line-height:1.6;">
+                ① 동의·안전체크<br>
+                ② 자료 5종 업로드<br>
+                ③ 추출값 직접 확인<br>
+                ④ 점수·분류·검산<br>
+                ⑤ 자료요청 메시지·요약본<br>
+                <br>
+                <i>소요: 약 5~10분</i>
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+    if st.button(
+        "🧑‍💼 사용자로 시작하기 →",
+        use_container_width=True,
+        type="primary",
+        key="cta_user",
+    ):
         st.switch_page("pages/1_시작하기.py")
-with cta_cols[1]:
-    if st.button("📋 단계별 둘러보기", use_container_width=True, type="secondary"):
-        st.switch_page("pages/5_자료완결성점수.py")
+
+with entry_cols[1]:
+    st.markdown(
+        """
+        <div style="background:linear-gradient(135deg, #F0F6FF 0%, #FFFFFF 100%);
+                    border-radius:16px;padding:22px 20px 18px;
+                    border:1px solid #C6DAF8;min-height:230px;">
+            <div style="font-size:30px;margin-bottom:6px;">🎬</div>
+            <div style="font-size:17px;font-weight:700;color:#1B64DA;margin-bottom:6px;">
+                심사관·자문위원 둘러보기
+            </div>
+            <div style="font-size:13px;color:#4E5968;line-height:1.6;margin-bottom:12px;">
+                솔루션의 작동·정책 가드레일·결과 화면을
+                <b>5분 안에</b> 확인합니다.
+            </div>
+            <div style="font-size:11px;color:#6B7684;line-height:1.6;">
+                ① 한 줄 정체성<br>
+                ② 결과 미리보기 (점수·분류)<br>
+                ③ 가드레일 라이브 데모<br>
+                ④ 정책 8종 카드<br>
+                ⑤ 두 여정 비교<br>
+                <br>
+                <i>소요: 약 5분 · 데모 데이터 자동 제공</i>
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+    if st.button(
+        "🎬 5분 둘러보기 →",
+        use_container_width=True,
+        type="primary",
+        key="cta_review",
+    ):
+        st.switch_page("pages/0_심사관_둘러보기.py")
 
 
-# 페이지 점퍼 (전체 페이지 이동).
+# ---------------------------------------------------------------------------
+# 페이지 점퍼
+# ---------------------------------------------------------------------------
+
+st.markdown("<div style='margin-top:12px;'></div>", unsafe_allow_html=True)
 ui.render_page_jumper(current_page_num=0)
 
-# 데모 안내 (해당 시 강조).
-if demo.is_demo_mode():
-    st.info(
-        "🎬 **데모 모드 안내** — "
-        "이미 5종 자료가 모두 업로드·확인되어 있고, 점수가 100점인 가짜 사용자로 진입 중입니다. "
-        "어느 페이지로 이동해도 결과 화면을 바로 볼 수 있습니다."
-    )
 
-# DEMO_MODE 사용자 안내 (시연용).
+# ---------------------------------------------------------------------------
+# 한계 사항 (시연용)
+# ---------------------------------------------------------------------------
+
 with st.expander("ℹ️ 본 베타 환경의 한계 사항"):
     st.markdown(
         """
         - **시연·자문위원 접근용 환경**입니다. 실제 베타 사용자 모집은 별도 호스팅 예정.
         - Streamlit Cloud 컨테이너는 재시작 시 데이터가 초기화됩니다.
-        - 외부 자문(화우·한전·NGO) 결과 수령 전 일부 표현·기능은 추정 의견 기반입니다.
-        - 자세한 내용은 [GitHub repo](https://github.com/dailyweekly/fair-energy)·정책 07 참조.
+        - 외부 자문(화우·한전·개인정보·NGO) 결과 수령 전 일부 표현·기능은 추정 의견 기반입니다.
+        - 자세한 내용은 [GitHub 저장소](https://github.com/dailyweekly/fair-energy)·정책 07 참조.
         """
     )
