@@ -126,6 +126,10 @@ st.markdown(
         <div style="font-size:15px;font-weight:700;color:#191F28;margin-bottom:12px;">
             🔍 이 서비스가 내게 필요한지 1초 확인
         </div>
+        <div style="font-size:11.5px;color:#8B95A1;line-height:1.55;margin-bottom:12px;">
+            기준은 <b>주거 형태</b>가 아니라 <b>전기요금 청구서를 누가 보내느냐</b>입니다.
+            같은 건물·층(다세대·반지하·원룸 포함)이라도 호실마다 다를 수 있습니다.
+        </div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
             <div style="background:#E8F8EE;border-radius:10px;padding:14px;">
                 <div style="font-size:13px;font-weight:700;color:#2D9A4B;margin-bottom:8px;">
@@ -134,8 +138,8 @@ st.markdown(
                 <div style="font-size:12px;color:#191F28;line-height:1.7;">
                     • 한전이 아니라 <b>임대인</b>이 전기료를 청구함<br>
                     • 임대인이 매달 "전기료 ○원" 알려주면 그대로 냄<br>
-                    • 한전 명의 청구서를 본인이 직접 안 받음<br>
-                    • 고시원·다가구·반지하·일부 원룸 거주
+                    • 한전 명의 청구서를 본인이 직접 <b>안</b> 받음<br>
+                    • 본인 명의 한전 고객번호가 <b>없음</b>
                 </div>
             </div>
             <div style="background:#FAFBFC;border-radius:10px;padding:14px;">
@@ -145,11 +149,18 @@ st.markdown(
                 <div style="font-size:12px;color:#4E5968;line-height:1.7;">
                     • <b>한전에서 본인 명의로 직접</b> 청구서를 받음<br>
                     • 본인이 한전 고객번호를 가지고 있음<br>
-                    • 다세대(공동주택) 일반·아파트 거주<br>
+                    • 매달 한전 앱·웹에서 본인 사용량 조회 가능<br>
                     → 한전 약관·요금표가 그대로 적용되므로<br>
                     &nbsp;&nbsp;&nbsp;본 서비스의 검증이 거의 필요하지 않습니다.
                 </div>
             </div>
+        </div>
+        <div style="margin-top:12px;padding:10px 12px;background:#FFFBEA;
+                    border-radius:8px;border-left:3px solid #FACC15;
+                    font-size:11.5px;color:#5D4037;line-height:1.6;">
+            💬 <b>참고로 자주 발견되는 사례</b> — 고시원·다가구 임차인은 거의 대부분 ✅에 해당합니다.
+            반대로 다세대·아파트 임차인은 대부분 ❌에 해당하지만, 임대인이 한전 계량기 1개로 받아
+            세대별로 나눠 청구하는 구조라면 ✅일 수 있습니다. <b>주거 형태가 아니라 청구 구조로 판단하세요.</b>
         </div>
     </div>
     """,
