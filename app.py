@@ -91,19 +91,45 @@ if demo.is_demo_mode():
 st.markdown(
     """
     <div style="background:white;border-radius:16px;padding:32px 28px 24px;
-                margin-bottom:20px;box-shadow:0 1px 3px rgba(0,0,0,0.04);
+                margin-bottom:16px;box-shadow:0 1px 3px rgba(0,0,0,0.04);
                 border:1px solid #E5E8EB;text-align:center;">
         <div style="font-size:42px;margin-bottom:8px;">⚡</div>
         <div style="font-size:26px;font-weight:700;color:#191F28;
-                    letter-spacing:-0.02em;margin-bottom:6px;">
+                    letter-spacing:-0.02em;margin-bottom:8px;">
             공정에너지
         </div>
-        <div style="font-size:14px;color:#6B7684;line-height:1.5;">
-            Energy Bill Passport · 임차인 전기요금 검산 가능성 진단
+        <div style="font-size:15px;color:#4E5968;line-height:1.6;
+                    max-width:520px;margin:0 auto;">
+            <b>고시원·다세대·반지하</b>에 사는 분이 매달 받는 전기요금이
+            <b>한전 공식 요금표대로 정확히 청구된 건지</b>
+            본인이 직접 확인할 수 있도록 돕는 서비스입니다.
         </div>
-        <div style="margin-top:12px;font-size:13px;color:#8B95A1;">
-            본 서비스는 <b style="color:#3182F6;">법률서비스가 아닙니다</b>.
-            임대인의 위법성·환급 가능성·분쟁 결과를 판단하지 않습니다.
+        <div style="margin-top:14px;padding-top:14px;border-top:1px solid #F2F4F6;
+                    font-size:13px;color:#8B95A1;">
+            ⚖️ 본 서비스는 <b style="color:#3182F6;">법률 자문이 아닙니다</b>.
+            임대인의 잘잘못이나 환급 가능성, 분쟁 결과는 판단하지 않습니다.
+        </div>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
+
+
+# ---------------------------------------------------------------------------
+# 1줄 문제 정의 — 어떤 문제를 해결하나요?
+# ---------------------------------------------------------------------------
+
+st.markdown(
+    """
+    <div style="background:#FFF7E5;border-radius:12px;padding:16px 20px;
+                margin-bottom:20px;border-left:4px solid #FFCA28;">
+        <div style="font-size:14px;font-weight:700;color:#5D4037;margin-bottom:6px;">
+            💡 왜 필요한가요?
+        </div>
+        <div style="font-size:13px;color:#5D4037;line-height:1.6;">
+            한전 명의 계량기 1개로 전기요금을 받은 임대인이
+            세대별로 나눠서 청구하는데, <b>그 분배가 맞는지 임차인이 직접 확인할 도구가 지금은 없습니다</b>.
+            매달 몇 만원이 잘못 청구돼도 그냥 내야 하는 셈입니다.
         </div>
     </div>
     """,
@@ -128,30 +154,31 @@ with entry_cols[0]:
     st.markdown(
         """
         <div style="background:white;border-radius:16px;padding:22px 20px 18px;
-                    border:1px solid #E5E8EB;min-height:230px;">
+                    border:1px solid #E5E8EB;min-height:260px;">
             <div style="font-size:30px;margin-bottom:6px;">🧑‍💼</div>
             <div style="font-size:17px;font-weight:700;color:#191F28;margin-bottom:6px;">
-                본인 자료로 시작
+                내 전기요금 확인하기
             </div>
             <div style="font-size:13px;color:#6B7684;line-height:1.6;margin-bottom:12px;">
-                실제 임차인이 본인 전기요금 자료를 업로드해
-                <b>검산 가능한 상태인지 확인</b>합니다.
+                고지서·계약서 등을 올리면
+                <b>내가 낸 전기요금이 한전 공식 요금표대로</b>
+                나온 건지 확인해드립니다.
             </div>
             <div style="font-size:11px;color:#8B95A1;line-height:1.6;">
-                ① 동의·안전체크<br>
-                ② 자료 5종 업로드<br>
-                ③ 추출값 직접 확인<br>
-                ④ 점수·분류·검산<br>
-                ⑤ 자료요청 메시지·요약본<br>
+                ① 간단한 동의·안전 확인<br>
+                ② 자료 업로드 (또는 직접 입력)<br>
+                ③ 추출값 확인·수정<br>
+                ④ 자료 충분도 점수 (100점)<br>
+                ⑤ 결과·메시지 예시·PDF<br>
                 <br>
-                <i>소요: 약 5~10분</i>
+                <i>소요: 약 5~10분 · 본인 자료 필요</i>
             </div>
         </div>
         """,
         unsafe_allow_html=True,
     )
     if st.button(
-        "🧑‍💼 사용자로 시작하기 →",
+        "🧑‍💼 내 자료로 시작하기 →",
         use_container_width=True,
         type="primary",
         key="cta_user",
@@ -163,23 +190,23 @@ with entry_cols[1]:
         """
         <div style="background:linear-gradient(135deg, #F0F6FF 0%, #FFFFFF 100%);
                     border-radius:16px;padding:22px 20px 18px;
-                    border:1px solid #C6DAF8;min-height:230px;">
+                    border:1px solid #C6DAF8;min-height:260px;">
             <div style="font-size:30px;margin-bottom:6px;">🎬</div>
             <div style="font-size:17px;font-weight:700;color:#1B64DA;margin-bottom:6px;">
                 심사관·자문위원 둘러보기
             </div>
             <div style="font-size:13px;color:#4E5968;line-height:1.6;margin-bottom:12px;">
-                솔루션의 작동·정책 가드레일·결과 화면을
-                <b>5분 안에</b> 확인합니다.
+                <b>어떤 자료가 들어가서 어떤 결과가 나오는지</b>
+                실제 데이터로 5분 안에 확인합니다.
             </div>
             <div style="font-size:11px;color:#6B7684;line-height:1.6;">
-                ① 한 줄 정체성<br>
-                ② 결과 미리보기 (점수·분류)<br>
-                ③ 가드레일 라이브 데모<br>
-                ④ 정책 8종 카드<br>
-                ⑤ 두 여정 비교<br>
+                ① 어떤 문제를 푸나요?<br>
+                ② 어떤 자료를 받아 무엇을 하나요?<br>
+                ③ 실제 결과 미리보기<br>
+                ④ 안전장치 직접 체험<br>
+                ⑤ 정책 문서 8종<br>
                 <br>
-                <i>소요: 약 5분 · 데모 데이터 자동 제공</i>
+                <i>소요: 약 5분 · 예시 데이터 자동 제공</i>
             </div>
         </div>
         """,
