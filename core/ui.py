@@ -126,8 +126,9 @@ p, div[data-testid="stMarkdownContainer"] {
     line-height: 1.65;
 }
 
-.stCaption, [data-testid="stCaptionContainer"] {
-    color: #8B95A1 !important;
+.stCaption, [data-testid="stCaptionContainer"],
+[data-testid="stCaptionContainer"] p {
+    color: #6B7684 !important;  /* 가시성 향상 — 너무 옅으면 안 보임 */
     font-size: 13px !important;
 }
 
@@ -141,8 +142,12 @@ p, div[data-testid="stMarkdownContainer"] {
     margin-bottom: 12px !important;
 }
 
-/* 버튼 — 토스 블루 */
-.stButton > button {
+/* 버튼 — 토스 블루.
+   Streamlit 버튼은 내부에 <div><p>텍스트</p></div> 구조라
+   button 자체뿐 아니라 자식 요소에도 color를 강제해야 함. */
+.stButton > button,
+.stDownloadButton > button,
+.stLinkButton > a {
     border-radius: 12px !important;
     padding: 12px 20px !important;
     font-weight: 600 !important;
@@ -153,21 +158,70 @@ p, div[data-testid="stMarkdownContainer"] {
     min-height: 44px !important;
 }
 
-.stButton > button[kind="primary"] {
-    background-color: #3182F6 !important;
-    color: white !important;
+/* Primary 버튼 — 파란 배경 + 흰 글씨 강제 */
+.stButton > button[kind="primary"],
+.stButton > button[kind="primary"] *,
+.stButton > button[kind="primary"] p,
+.stButton > button[kind="primary"] span,
+.stButton > button[kind="primary"] div,
+.stDownloadButton > button[kind="primary"],
+.stDownloadButton > button[kind="primary"] * {
+    color: #FFFFFF !important;
 }
-.stButton > button[kind="primary"]:hover {
+.stButton > button[kind="primary"],
+.stDownloadButton > button[kind="primary"] {
+    background-color: #3182F6 !important;
+    background: #3182F6 !important;
+}
+.stButton > button[kind="primary"]:hover,
+.stDownloadButton > button[kind="primary"]:hover {
     background-color: #1B64DA !important;
+    background: #1B64DA !important;
     transform: translateY(-1px);
 }
+.stButton > button[kind="primary"]:hover *,
+.stButton > button[kind="primary"]:active *,
+.stButton > button[kind="primary"]:focus * {
+    color: #FFFFFF !important;
+}
 
-.stButton > button[kind="secondary"] {
+/* Secondary 버튼 — 회색 배경 + 짙은 글씨 강제 */
+.stButton > button[kind="secondary"],
+.stButton > button[kind="secondary"] *,
+.stButton > button[kind="secondary"] p,
+.stButton > button[kind="secondary"] span,
+.stDownloadButton > button[kind="secondary"],
+.stDownloadButton > button[kind="secondary"] * {
+    color: #191F28 !important;
+}
+.stButton > button[kind="secondary"],
+.stDownloadButton > button[kind="secondary"] {
+    background-color: #F2F4F6 !important;
+    border: 1px solid #E5E8EB !important;
+}
+.stButton > button[kind="secondary"]:hover,
+.stDownloadButton > button[kind="secondary"]:hover {
+    background-color: #E5E8EB !important;
+}
+
+/* 비활성 버튼 — 가시성 유지 */
+.stButton > button:disabled,
+.stButton > button:disabled * {
+    opacity: 0.5 !important;
+    cursor: not-allowed !important;
+}
+
+/* Link button (st.link_button) */
+.stLinkButton > a {
     background-color: #F2F4F6 !important;
     color: #191F28 !important;
     border: 1px solid #E5E8EB !important;
+    text-decoration: none !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
 }
-.stButton > button[kind="secondary"]:hover {
+.stLinkButton > a:hover {
     background-color: #E5E8EB !important;
 }
 
