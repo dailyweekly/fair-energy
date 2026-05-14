@@ -134,6 +134,165 @@ with prob_cols[2]:
     )
 
 
+# ─────────────────────────────────────────────────────────────
+# 단순 분쟁이 아닌 「사회 문제」인 이유 — 5가지 구조적 축
+# ─────────────────────────────────────────────────────────────
+
+st.markdown(
+    """
+    <div style="margin:24px 0 12px;">
+        <div style="font-size:17px;font-weight:700;color:#191F28;margin-bottom:6px;">
+            📐 단순 분쟁이 아닌 「사회 문제」인 이유
+        </div>
+        <div style="font-size:13px;color:#6B7684;line-height:1.6;">
+            개인 임차인 ↔ 개인 임대인 분쟁이 아니라
+            <b>5가지 구조적 결함이 만든 사회 인프라의 빈 칸</b>입니다.
+            도구·인프라 차원의 해결이 필요한 이유입니다.
+        </div>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
+
+
+def _axis_card(num: str, emoji: str, title: str, body: str, ref: str = "") -> str:
+    ref_block = (
+        f'<div style="margin-top:10px;padding-top:8px;border-top:1px solid #F2F4F6;'
+        f'font-size:11px;color:#8B95A1;line-height:1.5;">{ref}</div>'
+        if ref else ""
+    )
+    return f"""
+    <div style="background:white;border-radius:12px;padding:18px;
+                border:1px solid #E5E8EB;height:100%;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+            <div style="background:#3182F6;color:white;font-size:11px;font-weight:700;
+                        padding:2px 8px;border-radius:6px;">축 {num}</div>
+            <div style="font-size:20px;">{emoji}</div>
+        </div>
+        <div style="font-size:14px;font-weight:700;color:#191F28;margin-bottom:6px;
+                    line-height:1.4;">
+            {title}
+        </div>
+        <div style="font-size:13px;color:#4E5968;line-height:1.6;">
+            {body}
+        </div>
+        {ref_block}
+    </div>
+    """
+
+
+axes_row1 = st.columns(2)
+with axes_row1[0]:
+    st.markdown(
+        _axis_card(
+            "1", "🔀",
+            "구조적 정보 비대칭",
+            "정상 시장은 「정보 대칭 + 검증 가능성」 위에서 성립합니다. "
+            "임차인은 한전 원고지서·배분 산식·계량기 데이터에 접근할 수 없어 "
+            "<b>자기 청구의 근거를 확인할 권한 자체가 박탈</b>됩니다.",
+            "→ 동일 구조가 수십만 가구에 적용 = 시장 구조의 결함",
+        ),
+        unsafe_allow_html=True,
+    )
+with axes_row1[1]:
+    st.markdown(
+        _axis_card(
+            "2", "🎯",
+            "취약계층 집중",
+            "잘못된 청구의 피해가 <b>무작위가 아니라 한쪽으로 쏠림</b>. "
+            "청년 복합위기·외국인 노동자·고령 1인가구·직장 제공 숙소 거주자가 "
+            "동일 구조에 집중적으로 노출됩니다.",
+            "국회입법조사처 2025: 청년 복합위기 73.3%가 고시원 거주",
+        ),
+        unsafe_allow_html=True,
+    )
+
+axes_row2 = st.columns(2)
+with axes_row2[0]:
+    st.markdown(
+        _axis_card(
+            "3", "🪟",
+            "정책 공백",
+            "<b>표시 의무는 있지만 검증 도구는 없습니다.</b> "
+            "국토부가 관리비 세부내역 표시를 강제했지만, "
+            "「표시된 산식이 실제 한전 요금표와 일치하는가」를 임차인이 "
+            "매월 확인할 인프라가 없습니다.",
+            "국토부 관리비 세부표시 의무화 2023.5 시행",
+        ),
+        unsafe_allow_html=True,
+    )
+with axes_row2[1]:
+    st.markdown(
+        _axis_card(
+            "4", "⚖️",
+            "권리 행사 비대칭",
+            "법령상 자료 요구 권리는 있지만, "
+            "<b>이의 제기 비용(전문가 상담 5~10만원 + 보복 위험) > 분쟁 단위(월 1~3만원)</b>. "
+            "그래서 사람들은 '그냥 낸다' — 합리적 침묵이 권리 포기처럼 보입니다.",
+            "→ 권리는 있지만 행사 불가능한 비대칭",
+        ),
+        unsafe_allow_html=True,
+    )
+
+axes_row3 = st.columns(2)
+with axes_row3[0]:
+    st.markdown(
+        _axis_card(
+            "5", "🌍",
+            "글로벌 표준에서의 한국 공백",
+            "영국(Citizens Advice·Shelter)은 <b>maximum resale price 원칙</b>으로, "
+            "독일(Verbraucherzentrale)은 <b>계량기 사진·연간 정산 표준</b>으로 보호합니다. "
+            "B2B Bill Validation SaaS도 이미 보편화. <b>한국 B2C 임차인 영역만 비어 있음</b>.",
+            "영국·독일·EU B2B 표준 — 한국 B2C 미도입",
+        ),
+        unsafe_allow_html=True,
+    )
+with axes_row3[1]:
+    st.markdown(
+        """
+        <div style="background:linear-gradient(135deg, #F0F6FF 0%, #FFFFFF 100%);
+                    border-radius:12px;padding:18px;
+                    border:1px solid #C6DAF8;height:100%;">
+            <div style="font-size:20px;margin-bottom:8px;">📌</div>
+            <div style="font-size:14px;font-weight:700;color:#1B64DA;margin-bottom:6px;">
+                한 줄 결론
+            </div>
+            <div style="font-size:13px;color:#191F28;line-height:1.65;">
+                5중 구조적 결함이 만든 <b>사회 인프라의 빈 칸</b>.
+                개인이 메울 수 없으므로
+                <b>도구·인프라 차원의 사회적 해결</b>이 필요합니다.
+            </div>
+            <div style="margin-top:10px;padding-top:8px;border-top:1px solid #C6DAF8;
+                        font-size:11px;color:#1B64DA;line-height:1.5;">
+                → SK이노 Track A "에너지 접근권"의 본질 회복
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+# 보조 축 — 보복 위험 + 데이터 자기결정권 (펼쳐 보기)
+with st.expander(
+    "💭 보조 축 2가지 더 보기 — 보복 위험·데이터 자기결정권",
+    expanded=False,
+):
+    st.markdown(
+        """
+        **축 6 · 보복 위험으로 시장 자정 작용이 작동 안 함**
+        정상 시장이라면 사용자 항의 → 임대인 정정 흐름. 그런데 임차인이 청구 의문을
+        제기하면 즉시 퇴거 압박·보증금 반환 지연 위험. 외국인·고시원 거주자는
+        대체 주거 부재로 보복 못 견딤. → **시장 가격 발견 메커니즘 자체가 마비**되는
+        시장 실패 영역.
+
+        **축 7 · 에너지 데이터 자기결정권 박탈**
+        마이데이터 시대 표준은 「자기 데이터에 자기가 접근할 권리」. 의료·신용·금융은
+        이미 보장됨. 그러나 **자기가 쓴 전기 사용량 데이터**에 임차인은 접근 못함
+        (임대인 명의이므로). 자기 비용을 결정하는 데이터에 자기가 접근 못 하는
+        비대칭은 데이터 시대의 새로운 불평등.
+        """
+    )
+
+
 # ---------------------------------------------------------------------------
 # §2. 어떤 자료를 받아 무엇을 하나요? (Input → 처리 → Output)
 # ---------------------------------------------------------------------------
