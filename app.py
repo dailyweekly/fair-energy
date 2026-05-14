@@ -99,8 +99,8 @@ st.markdown(
             공정에너지
         </div>
         <div style="font-size:15px;color:#4E5968;line-height:1.6;
-                    max-width:520px;margin:0 auto;">
-            <b>고시원·다세대·반지하</b>에 사는 분이 매달 받는 전기요금이
+                    max-width:560px;margin:0 auto;">
+            <b>임대인이 분배 청구하는 전기요금</b>을 매달 내고 계신 분이
             <b>한전 공식 요금표대로 정확히 청구된 건지</b>
             본인이 직접 확인할 수 있도록 돕는 서비스입니다.
         </div>
@@ -108,6 +108,48 @@ st.markdown(
                     font-size:13px;color:#8B95A1;">
             ⚖️ 본 서비스는 <b style="color:#3182F6;">법률 자문이 아닙니다</b>.
             임대인의 잘잘못이나 환급 가능성, 분쟁 결과는 판단하지 않습니다.
+        </div>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
+
+
+# ---------------------------------------------------------------------------
+# 「이 서비스가 내게 필요한지 1초 확인」 진단 카드
+# ---------------------------------------------------------------------------
+
+st.markdown(
+    """
+    <div style="background:white;border-radius:14px;padding:20px 24px;
+                margin-bottom:16px;border:1px solid #E5E8EB;">
+        <div style="font-size:15px;font-weight:700;color:#191F28;margin-bottom:12px;">
+            🔍 이 서비스가 내게 필요한지 1초 확인
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+            <div style="background:#E8F8EE;border-radius:10px;padding:14px;">
+                <div style="font-size:13px;font-weight:700;color:#2D9A4B;margin-bottom:8px;">
+                    ✅ 이런 분께 필요해요
+                </div>
+                <div style="font-size:12px;color:#191F28;line-height:1.7;">
+                    • 한전이 아니라 <b>임대인</b>이 전기료를 청구함<br>
+                    • 임대인이 매달 "전기료 ○원" 알려주면 그대로 냄<br>
+                    • 한전 명의 청구서를 본인이 직접 안 받음<br>
+                    • 고시원·다가구·반지하·일부 원룸 거주
+                </div>
+            </div>
+            <div style="background:#FAFBFC;border-radius:10px;padding:14px;">
+                <div style="font-size:13px;font-weight:700;color:#6B7684;margin-bottom:8px;">
+                    ❌ 이런 분은 필요 없어요
+                </div>
+                <div style="font-size:12px;color:#4E5968;line-height:1.7;">
+                    • <b>한전에서 본인 명의로 직접</b> 청구서를 받음<br>
+                    • 본인이 한전 고객번호를 가지고 있음<br>
+                    • 다세대(공동주택) 일반·아파트 거주<br>
+                    → 한전 약관·요금표가 그대로 적용되므로<br>
+                    &nbsp;&nbsp;&nbsp;본 서비스의 검증이 거의 필요하지 않습니다.
+                </div>
+            </div>
         </div>
     </div>
     """,
