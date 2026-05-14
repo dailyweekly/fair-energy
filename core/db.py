@@ -20,11 +20,12 @@ from typing import Iterator, Optional
 
 SCHEMA: list[str] = [
     # 1. users — 최소 식별 필드만. 이름·전화·이메일 미수집.
+    # cohort='demo' — 시연·심사관 데모 모드 자동 시드 사용자(정책 06 §부록).
     """
     CREATE TABLE IF NOT EXISTS users (
         user_id      TEXT PRIMARY KEY,
         cohort       TEXT NOT NULL DEFAULT 'general'
-                     CHECK (cohort IN ('ngo', 'general', 'admin')),
+                     CHECK (cohort IN ('ngo', 'general', 'admin', 'demo')),
         locale       TEXT NOT NULL DEFAULT 'ko',
         created_at   TEXT NOT NULL,
         updated_at   TEXT NOT NULL
@@ -219,9 +220,41 @@ def transaction(conn: sqlite3.Connection) -> Iterator[sqlite3.Connection]:
         raise
 
 
+def _migrate_legacy_schema_if_needed(db_path: Path) -> None:
+    """구 스키마(cohort 'demo' 미지원 등) 감지 시 DB 파일 삭제.
+
+    PoC 한정 — 데이터 휘발성 전제. 베타 본격 단계에서는 ALTER TABLE
+    기반 정식 마이그레이션 또는 PostgreSQL 전환 필요.
+    """
+    if not db_path.exists():
+        return
+    try:
+        tmp = sqlite3.connect(db_path)
+        row = tmp.execute(
+            "SELECT sql FROM sqlite_master "
+            "WHERE type='table' AND name='users'"
+        ).fetchone()
+        tmp.close()
+        if row and row[0] and "'demo'" not in row[0]:
+            # 구 스키마 — 신 스키마로 재생성 위해 삭제.
+            db_path.unlink()
+    except sqlite3.Error:
+        # 깨진 DB라면 동일하게 폐기.
+        try:
+            db_path.unlink()
+        except OSError:
+            pass
+
+
 def init_db(db_path: Path | str) -> sqlite3.Connection:
-    """DB 파일이 없으면 생성하고, 모든 테이블·인덱스를 보장한다."""
-    conn = connect(db_path)
+    """DB 파일이 없으면 생성하고, 모든 테이블·인덱스를 보장한다.
+
+    구 스키마(cohort='demo' 미지원 등) 감지 시 DB 파일을 폐기하고 재생성한다.
+    PoC 환경의 데이터 휘발성 전제이며, 베타 본격 환경에서는 별도 마이그레이션 절차 필요.
+    """
+    path = Path(db_path)
+    _migrate_legacy_schema_if_needed(path)
+    conn = connect(path)
     with transaction(conn):
         for ddl in SCHEMA:
             conn.execute(ddl)
