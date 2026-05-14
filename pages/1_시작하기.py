@@ -72,8 +72,15 @@ with st.container(border=True):
 # ---------------------------------------------------------------------------
 
 if st.session_state.get("user_id"):
-    st.success(f"세션 사용자 ID: `{st.session_state['user_id']}`")
+    st.success("✅ 준비가 완료되었어요. 다음 단계로 넘어가 주세요.")
     st.page_link("pages/2_동의_및_안전체크.py", label="다음: 동의 및 안전체크 →")
+    # 기술 식별자는 문제 신고·로그 조회용으로만 노출.
+    with st.expander("기술 정보 (문제 신고 시에만 필요)"):
+        st.caption(
+            "아래 ID는 로그인 계정이 아니라 이번 방문의 익명 식별자입니다. "
+            "오류 신고 시 함께 알려주시면 로그 조회가 빨라집니다. 평소에는 무시해도 됩니다."
+        )
+        st.code(st.session_state["user_id"], language=None)
 else:
     st.markdown("---")
     st.markdown("**시작하기 전에**")
